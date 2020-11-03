@@ -2,7 +2,7 @@
 
 Docker container to run the Drozer computer client. This Docker container runs an older version of Ubuntu and Python2.
 
-h4. Setup
+## Setup
 
 You'll need to download Java 7 (`jdk-7u80-linux-x64.tar.gz`) for Linux x64 machines. At the time of this document's writing, Java 7 can be downloaded here: https://www.oracle.com/java/technologies/javase/javase7-archive-downloads.html
 
@@ -15,7 +15,7 @@ Place the downloaded `tar.gz` file into the `install` directory of this project.
   - jdk-7u80-linux-x64.tar.gz
 ```
 
-h4. Build and Install
+## Build and Install
 
 If you want to build this container yourself, use the `docker build` command to build the Docker container:
 
@@ -25,7 +25,7 @@ Alternatively, use the pre-built Docker container at https://hub.docker.com/r/ke
 
 `docker pull kengannonmwr/drozer_docker`
 
-h4. Run and Connect
+## Run and Connect
 
 First, obtain a shell into the container:
 
