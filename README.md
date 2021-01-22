@@ -19,17 +19,17 @@ Place the downloaded `tar.gz` file into the `install` directory of this project.
 
 If you want to build this container yourself, use the `docker build` command to build the Docker container:
 
-`docker build -t kengannonmwr/drozer_docker .`
+`docker build -t yogehi/drozer_docker .`
 
-Alternatively, use the pre-built Docker container at https://hub.docker.com/r/kengannonmwr/drozer_docker:
+Alternatively, use the pre-built Docker container at https://hub.docker.com/r/yogehi/drozer_docker:
 
-`docker pull kengannonmwr/drozer_docker`
+`docker pull yogehi/drozer_docker`
 
 ## Run and Connect
 
 First, obtain a shell into the container:
 
-`docker run -it kengannonmwr/drozer_docker`
+`docker run -it yogehi/drozer_docker`
 
 Then run the Drozer command to connect to the phone:
 
