@@ -1,4 +1,4 @@
-FROM ubuntu:xenial-20160317
+FROM ubuntu:xenial-20160818
 COPY install /tmp
 RUN apt-get update && \
 	apt-get install \
