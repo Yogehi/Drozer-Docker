@@ -27,6 +27,8 @@ Alternatively, use the pre-built Docker container at https://hub.docker.com/r/yo
 
 ## Run and Connect
 
+#Option 1: connect to the phone via network
+
 First, obtain a shell into the container:
 
 `docker run -it yogehi/drozer_docker`
@@ -34,3 +36,17 @@ First, obtain a shell into the container:
 Then run the Drozer command to connect to the phone:
 
 `drozer console connect --server <phone IP address>`
+
+#Option 2: connect to the phone via USB
+
+First, forward port 31415 to the phone via ADB:
+
+`adb forward tcp:31415 tcp:31415`
+
+Next, obtain a shell into the container while adding an address to the container's Hosts file:
+
+`docker run -it --add-host host.docker.internal:host-gateway yogehi/drozer_docker`
+
+Finally, connect to drozer:
+
+`drozer console connect --server host.docker.internal`
