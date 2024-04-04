@@ -1,19 +1,6 @@
 # Drozer-Docker
 
-Docker container to run the Drozer computer client. This Docker container runs an older version of Ubuntu and Python2.
-
-## Setup
-
-You'll need to download Java 7 (`jdk-7u80-linux-x64.tar.gz`) for Linux x64 machines. At the time of this document's writing, Java 7 can be downloaded here: https://www.oracle.com/java/technologies/javase/javase7-archive-downloads.html
-
-Place the downloaded `tar.gz` file into the `install` directory of this project. The resulting folder structure should look like this:
-
-```
-- Dockerfile
-- install
-  |
-  - jdk-7u80-linux-x64.tar.gz
-```
+Docker container to run the Drozer computer client (version 3.0.1).
 
 ## Build and Install
 
@@ -27,7 +14,7 @@ Alternatively, use the pre-built Docker container at https://hub.docker.com/r/yo
 
 ## Run and Connect
 
-#Option 1: connect to the phone via network
+### Option 1: connect to the device via network
 
 First, obtain a shell into the container:
 
@@ -37,9 +24,9 @@ Then run the Drozer command to connect to the phone:
 
 `drozer console connect --server <phone IP address>`
 
-#Option 2: connect to the phone via USB
+### Option 2: connect to the device via USB / `adb` on Windows host (Docker Desktop)
 
-First, forward port 31415 to the phone via ADB:
+First, forward port 31415 to the phone via `adb`:
 
 `adb forward tcp:31415 tcp:31415`
 
@@ -50,3 +37,31 @@ Next, obtain a shell into the container while adding an address to the container
 Finally, connect to drozer:
 
 `drozer console connect --server host.docker.internal`
+
+### Option 3: connect to the device via USB / `adb` on Linux host (`docker` service) and have `adb` listen on all network interfacesss
+
+First, forward port 31415 to the phone via `adb` and have `adb` listen on all interfaces:
+
+`adb -a forward tcp:31415 tcp:31415`
+
+Next, obtain a shell into the container while exposing 
+
+`docker run -it --add-host host.docker.internal:host-gateway yogehi/drozer_docker`
+
+Finally, connect to drozer:
+
+`drozer console connect --server host.docker.internal`
+
+### Option 4: connect to the device via USB / `adb` on Linux host (`docker` service) and mount the container's network interfaces to your host's network interfaces
+
+First, forward port 31415 to the phone via `adb`:
+
+`adb forward tcp:31415 tcp:31415`
+
+Next, obtain a shell into the container while exposing 
+
+`docker run -it --net host yogehi/drozer_docker`
+
+Finally, connect to drozer:
+
+`drozer console connect --server localhost`

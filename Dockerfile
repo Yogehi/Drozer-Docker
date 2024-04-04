@@ -1,23 +1,26 @@
-FROM ubuntu:xenial-20160818
-COPY install /tmp
+FROM ubuntu:jammy-20240227
 RUN apt-get update && \
 	apt-get install \
-		python \
-		python-pip \
-		python-protobuf \
-		python-openssl \
-		python-twisted \
-		python-yaml \
+		python3 \
+		python3-pip \
+		python3-protobuf \
+		python3-openssl \
+		python3-twisted \
+		python3-yaml \
+		python3-distro \
 		git \
 		protobuf-compiler \
+		libexpat1 \
+		libexpat1-dev \
+		libpython3-dev \
+		python-is-python3 \
+		zip \
+		default-jdk \
 		-y
-RUN git clone https://github.com/mwrlabs/drozer/ /tmp/drozer
-RUN mkdir /opt/java
-RUN tar -zxf /tmp/jdk-7u80-linux-x64.tar.gz -C /opt/java
-RUN export "JAVA_HOME=/opt/java/jdk1.7.0_80/" && \
-	export "PATH=$JAVA_HOME/bin:$PATH" && \
-	cd /tmp/drozer && \
-	make deb
-RUN dpkg -i /tmp/drozer/dist/drozer*.deb
-RUN echo "[executables]" > /root/.drozer_config
-RUN echo "java = /opt/java/jdk1.7.0_80/" >> /root/.drozer_config
+RUN pip install --upgrade pip
+RUN pip install --upgrade protobuf
+RUN pip install --upgrade twisted
+RUN git clone https://github.com/WithSecureLabs/drozer /tmp/drozer
+RUN cd /tmp/drozer && \
+	python setup.py bdist_wheel && \
+	pip install ./dist/drozer*
